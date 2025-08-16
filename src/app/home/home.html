@@ -1,0 +1,41 @@
+<section class="hero">
+  <div class="hero-content glass-card">
+    <h1>Discover & Share Delicious Recipes</h1>
+    <p>Join our community to find, create, and share your favorite dishes!</p>
+    <div class="button-container">
+      <button mat-raised-button color="accent">Get Started</button>
+      <button mat-stroked-button color="primary" routerLink="/browse-recipes">Browse Recipes</button>
+    </div>
+  </div>
+</section>
+
+<section class="search-section">
+  <form class="search-bar glass-card">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search Recipes</mat-label>
+      <input matInput placeholder="e.g., Pasta, Vegan" aria-label="Search recipes">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </form>
+</section>
+
+<section class="recipe-preview">
+  <h2>Featured Recipes</h2>
+  <div class="recipe-grid">
+    @for (recipe of recipes$ | async; track recipe.id) {
+        <mat-card class="recipe-card glass-card">
+          <img mat-card-image [src]="recipe.imageUrl || 'assets/placeholder.jpg'" [alt]="recipe.title">
+          <mat-card-content>
+            <h3>{{recipe.title}}</h3>
+            <p>{{recipe.description | slice:0:100}}{{recipe.description.length > 100 ? '...' : ''}}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button [routerLink]="['/recipe', recipe.id]">View Recipe</button>
+          </mat-card-actions>
+        </mat-card>
+      }
+  </div>
+  <div class="view-all">
+    <button mat-raised-button color="primary" routerLink="/browse-recipes">View All Recipes</button>
+  </div>
+</section>

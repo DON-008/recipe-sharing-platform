@@ -1,0 +1,121 @@
+.recipe-detail {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.detail-card {
+  background: transparent;
+
+  ::ng-deep .mat-mdc-card {
+    background: transparent;
+  }
+
+  img {
+    object-fit: cover;
+    height: 300px;
+    width: 100%;
+    border-radius: 8px;
+  }
+
+  ::ng-deep .mat-mdc-card-header {
+    justify-content: center;
+    padding: 1.5rem;
+
+    .mat-mdc-card-title {
+      font-size: 2rem;
+      color: #333;
+    }
+
+    .mat-mdc-card-subtitle {
+      font-size: 1.2rem;
+      color: #666;
+    }
+  }
+
+  ::ng-deep .mat-mdc-card-content {
+    padding: 1.5rem;
+
+    .description {
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 1.5rem;
+    }
+
+    .details {
+      margin-bottom: 1.5rem;
+
+      h3 {
+        font-size: 1.3rem;
+        margin: 1rem 0 0.5rem;
+        color: #333;
+      }
+
+      .mat-mdc-chip-listbox {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+
+        .mat-mdc-chip {
+          background: #e8eaf6;
+          color: #3f51b5;
+        }
+      }
+
+      .mat-mdc-list {
+        text-align: left;
+        padding: 0;
+
+        .mat-mdc-list-item {
+          font-size: 1rem;
+          color: #333;
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+  }
+
+  ::ng-deep .mat-mdc-card-actions {
+    padding: 1.5rem;
+    justify-content: center;
+
+    .mat-mdc-button {
+      color: #3f51b5;
+    }
+  }
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .recipe-detail {
+    padding: 1rem;
+  }
+
+  .detail-card {
+    img {
+      height: 200px;
+    }
+
+    ::ng-deep .mat-mdc-card-title {
+      font-size: 1.6rem;
+    }
+
+    ::ng-deep .mat-mdc-card-subtitle {
+      font-size: 1rem;
+    }
+
+    ::ng-deep .mat-mdc-list-item {
+      font-size: 0.9rem;
+    }
+  }
+}

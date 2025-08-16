@@ -1,0 +1,117 @@
+.browse-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 2rem;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.search-field {
+  flex: 1;
+  min-width: 200px;
+}
+
+.recipe-preview {
+  padding: 2rem;
+  text-align: center;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+}
+
+.recipe-viewport {
+  height: 70vh; /* Allow vertical scrolling for multiple rows */
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Multiple cards per row */
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.recipe-card {
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  ::ng-deep .mat-mdc-card {
+    background: transparent;
+  }
+
+  img {
+    object-fit: cover;
+    height: 150px;
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+  }
+
+  ::ng-deep .mat-mdc-card-content {
+    padding: 1.5rem;
+    padding-bottom: 0;
+
+    h3 {
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+      color: #333;
+    }
+
+    p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+  }
+
+  ::ng-deep .mat-mdc-card-actions {
+    padding: 0 1.5rem 1.5rem;
+    display: flex;
+    justify-content: center; /* Center View Recipe button */
+
+    .mat-mdc-button {
+      color: #3f51b5;
+    }
+  }
+}
+
+mat-spinner {
+  margin: 2rem auto;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .browse-header {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .recipe-viewport {
+    height: 70vh;
+  }
+
+  .recipe-grid {
+    grid-template-columns: 1fr; /* Single column for mobile */
+  }
+}

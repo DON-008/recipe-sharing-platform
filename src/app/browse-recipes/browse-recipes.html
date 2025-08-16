@@ -1,0 +1,54 @@
+<section class="browse-header glass-card">
+  <mat-form-field appearance="outline" class="search-field">
+    <mat-label>Search Recipes</mat-label>
+    <input matInput placeholder="e.g., Pasta, Vegan"  aria-label="Search recipes">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Cuisine</mat-label>
+    <mat-select (selectionChange)="onCuisineChange($event.value)">
+      @for (cuisine of cuisines; track cuisine) {
+        <mat-option [value]="cuisine">{{cuisine | titlecase}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Dietary Tags</mat-label>
+    <mat-select (selectionChange)="onDietaryChange($event.value)">
+      @for (tag of dietaryTags; track tag) {
+        <mat-option [value]="tag">{{tag | titlecase}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Prep Time</mat-label>
+    <mat-select (selectionChange)="onPrepTimeChange($event.value)">
+      @for (time of prepTimes; track time.value) {
+        <mat-option [value]="time.value">{{time.label}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</section>
+
+<section class="recipe-preview">
+  <h2>All Recipes</h2>
+  <cdk-virtual-scroll-viewport itemSize="350" class="recipe-viewport">
+    <div class="recipe-grid">
+      @for (recipe of recipes$ | async; track recipe.id) {
+        <mat-card class="recipe-card glass-card">
+          <img mat-card-image [src]="recipe.imageUrl || 'assets/placeholder.jpg'" [alt]="recipe.title">
+          <mat-card-content>
+            <h3>{{recipe.title}}</h3>
+            <p>{{recipe.description | slice:0:100}}{{recipe.description.length > 100 ? '...' : ''}}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button [routerLink]="['/recipe', recipe.id]">View Recipe</button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+  </cdk-virtual-scroll-viewport>
+  @if (isLoading) {
+    <mat-spinner></mat-spinner>
+  }
+</section>
