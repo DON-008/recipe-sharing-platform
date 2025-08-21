@@ -26,13 +26,24 @@ import { Recipe } from '../recipe.model';
   styleUrl: './home.scss'
 })
 export class Home {
+  searchTerm$ = new BehaviorSubject<string>('');
 
   recipes$: Observable<Recipe[]>;
 
   constructor(private recipeService: RecipeService) {
-    this.recipes$ = this.recipeService.getRecipes({  }).pipe(
-      map(recipes => recipes.slice(0, 4)))
+    // this.recipes$ = this.recipeService.getRecipes({  }).pipe(
+    //   map(recipes => recipes.slice(0, 4)))
+      this.recipes$ = combineLatest([this.searchTerm$.pipe(debounceTime(300))]).pipe(
+      switchMap(([search]) => 
+        this.recipeService.getRecipes({ search})
+      ),
+      map(recipes => recipes.slice(0, 4))
+    );
     
+  }
+
+  onSearchChange(search: string) {
+    this.searchTerm$.next(search);
   }
 
 }

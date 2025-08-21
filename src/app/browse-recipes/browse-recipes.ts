@@ -62,7 +62,6 @@ export class BrowseRecipes {
 
   onSearchChange(search: string) {
     this.searchTerm$.next(search);
-    console.log(this.recipes$ )
   }
 
   onCuisineChange(cuisine: string) {
