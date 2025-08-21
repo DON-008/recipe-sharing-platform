@@ -1,12 +1,29 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet, RouterModule } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from './auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet,CommonModule, RouterModule, MatToolbarModule, MatButtonModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App {
   protected readonly title = signal('recipe-sharing-platform');
+  isAuthenticated$: Observable<boolean>;
+
+  constructor(private authService: AuthService) {
+    this.isAuthenticated$ = this.authService.isAuthenticated();
+  }
+
+  logout() {
+    this.authService.logout().subscribe({
+      next: () => console.log('Logged out'),
+      error: (err) => console.error('Logout error:', err)
+    });
+  }
 }

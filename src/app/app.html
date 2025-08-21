@@ -1,5 +1,10 @@
-<main>
-      <section class="content">
-        <router-outlet></router-outlet>
-      </section>
-</main>
+<mat-toolbar color="primary">
+  <span>Recipe Sharing Platform</span>
+  <div class="nav-links">
+    <a mat-button routerLink="/">Home</a>
+    <a mat-button routerLink="/browse-recipes">Browse Recipes</a>
+    <a mat-button *ngIf="!(isAuthenticated$ | async)" routerLink="/auth">Login/Sign Up</a>
+    <button mat-button *ngIf="isAuthenticated$ | async" (click)="logout()">Logout</button>
+  </div>
+</mat-toolbar>
+<router-outlet></router-outlet>

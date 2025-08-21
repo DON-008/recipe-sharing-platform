@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { Home } from './home/home';
 import { SeedComponent } from './seed.component';
+import { AuthComponent } from './auth/auth';
 
 export const routes: Routes = [
     {
@@ -15,6 +16,7 @@ export const routes: Routes = [
     path: 'recipe/:id', 
     loadComponent: () => import('./recipe-detail/recipe-detail').then(m => m.RecipeDetail)
     },
+    { path: 'auth', component: AuthComponent },
     { path: 'seed', component: SeedComponent },
     { 
     path: '**', redirectTo: '' 

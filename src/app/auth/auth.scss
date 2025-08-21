@@ -1,0 +1,124 @@
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  padding: 1rem;
+  background: url('/assets/hero-bg.png') no-repeat center center;
+  background-size: cover;
+}
+
+.auth-card {
+  max-width: 400px;
+  width: 100%;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+// /* Text and placeholder styles */
+// ::ng-deep .mat-mdc-form-field {
+//   .mat-mdc-form-field-label {
+//     color: #ffffff !important; /* White labels for high contrast */
+//   }
+//   .mat-mdc-input-element {
+//     color: #ffffff !important; /* White text for input */
+//   }
+//   .mat-mdc-input-element::placeholder {
+//     color: rgba(255, 255, 255, 0.7) !important; /* Light gray placeholder */
+//   }
+// }
+
+/* Button styles */
+button.mat-mdc-raised-button {
+  width: 100%;
+}
+
+.error {
+  color: #ff6b6b; /* Bright coral for error messages */
+  text-align: center;
+  margin: 1rem 0;
+}
+
+/* Tab group styles */
+mat-tab-group {
+  max-height: 100%;
+}
+
+/* Remove scrolling in tabs */
+::ng-deep .mat-mdc-tab-body-content {
+  overflow: hidden !important;
+  padding: 1rem;
+  height: auto !important;
+}
+
+/* Tab header text */
+::ng-deep .mat-mdc-tab .mdc-tab__text-label {
+  color: #ffffff !important; /* White text for tab labels */
+}
+::ng-deep .mat-mdc-tab-label.mdc-tab--active {
+  color: #ff4081 !important; /* Accent color for active tab */
+}
+
+::ng-deep .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-floating-label{
+    color: #ffffff !important;
+}
+
+/* Ensure ink bar matches accent */
+::ng-deep .mat-mdc-tab-group .mat-mdc-tab-header .mat-mdc-tab-header-ink-bar {
+  background-color: #ff4081 !important; /* Pink ink bar */
+}
+
+@media (max-width: 600px) {
+  .auth-container {
+    padding: 0.5rem; /* Tighter padding */
+  }
+
+  .auth-card {
+    max-width: 90%; /* Smaller card width */
+    padding: 1rem;
+  }
+
+  mat-form-field {
+    margin-bottom: 0.5rem; /* Tighter spacing */
+  }
+
+  ::ng-deep .mat-mdc-form-field {
+    .mat-mdc-form-field-label {
+      font-size: 0.9rem; /* Smaller labels */
+    }
+    .mat-mdc-input-element {
+      font-size: 0.9rem; /* Smaller input text */
+    }
+  }
+
+  button.mat-mdc-raised-button {
+    font-size: 0.9rem; /* Smaller button text */
+    padding: 0.5rem; /* Smaller button padding */
+  }
+
+  .error {
+    font-size: 0.8rem; /* Smaller error text */
+  }
+
+  ::ng-deep .mat-mdc-tab-body-content {
+    padding: 0.5rem;
+  }
+
+  ::ng-deep .mat-mdc-tab-label {
+    font-size: 0.9rem; /* Smaller tab labels */
+  }
+}
