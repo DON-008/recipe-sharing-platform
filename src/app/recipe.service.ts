@@ -12,9 +12,9 @@ export class RecipeService {
     const recipesCollection = collection(this.firestore, 'recipes');
     let q = query(recipesCollection);
 
-    if (filters.search) {
-      q = query(recipesCollection, where('title', '>=', filters.search.trim()), where('title', '<=', filters.search.trim() + '\uf8ff'));
-    }
+    console.log('Filters:', filters); // Debug log
+
+    // Apply server-side filters (excluding search)
     if (filters.cuisine) {
       q = query(q, where('cuisine', '==', filters.cuisine));
     }
@@ -26,7 +26,20 @@ export class RecipeService {
     }
 
     return collectionData(q, { idField: 'id' }).pipe(
-      map(recipes => recipes as Recipe[])
+      map(recipes => {
+        let filteredRecipes = recipes as Recipe[];
+        if (filters.search) {
+          const searchTerm = filters.search.trim().toLowerCase();
+          console.log('Search term:', searchTerm);
+          filteredRecipes = filteredRecipes.filter(recipe =>
+            recipe.cuisine.toLowerCase().includes(searchTerm) ||
+            recipe.description.toLowerCase().includes(searchTerm) ||
+            recipe.title.toLowerCase().includes(searchTerm)
+          );
+        }
+        console.log('Recipes fetched:', filteredRecipes);
+        return filteredRecipes;
+      })
     );
   }
 

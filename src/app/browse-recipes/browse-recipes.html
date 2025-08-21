@@ -1,7 +1,7 @@
 <section class="browse-header glass-card">
   <mat-form-field appearance="outline" class="search-field">
     <mat-label>Search Recipes</mat-label>
-    <input matInput placeholder="e.g., Pasta, Vegan"  aria-label="Search recipes">
+    <input matInput placeholder="e.g., Pasta, Vegan"  aria-label="Search recipes" (input)="onSearchChange($any($event.target).value)">
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
   <mat-form-field appearance="outline">
