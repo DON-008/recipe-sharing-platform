@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
@@ -11,6 +11,8 @@ import { Recipe } from '../recipe.model';
 import { Observable, of } from 'rxjs';
 import { switchMap, map,catchError } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
+import { DeleteConfirmationDialog } from '../delete-confirmation-dialog/delete-confirmation-dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -21,7 +23,8 @@ import { AuthService } from '../auth.service';
     MatButtonModule,
     MatChipsModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule
   ],
   templateUrl: './recipe-detail.html',
   styleUrl: './recipe-detail.scss'
@@ -34,7 +37,9 @@ export class RecipeDetail implements OnInit{
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
-    private authService: AuthService
+    private authService: AuthService,
+    private dialog: MatDialog,
+    private router: Router,
   ) {
     this.isAuthenticated$ = this.authService.isAuthenticated();
     this.recipe$ = this.route.paramMap.pipe(
@@ -54,5 +59,20 @@ export class RecipeDetail implements OnInit{
   }
 
   ngOnInit(): void {}
+
+  deleteRecipe(recipeId: string) {
+    const dialogRef = this.dialog.open(DeleteConfirmationDialog);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.recipeService.deleteRecipe(recipeId).then(() => {
+         this.router.navigate(['/browse-recipes']);
+        }).catch(err => {
+          console.error('Error deleting recipe:', err);
+        });
+      }
+    });
+  }
+
+
 
 }

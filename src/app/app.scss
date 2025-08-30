@@ -10,6 +10,9 @@ mat-toolbar {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   color: #5a0a79; /* White text for title */
 }
+::ng-deep .mdc-dialog--open .mat-mdc-dialog-surface{
+  background: #d3ba9780;
+}
 
 .nav-links {
   display: flex;

@@ -25,6 +25,7 @@
         <button mat-button routerLink="/browse-recipes">Back</button>
         @if (isOwner$ | async) {
           <button mat-raised-button color="primary" [routerLink]="['/edit-recipe', recipe.id]">Edit</button>
+          <button mat-raised-button color="warn" (click)="deleteRecipe(recipe.id!)">Delete</button>
         }
       </mat-card-actions>
     </mat-card>

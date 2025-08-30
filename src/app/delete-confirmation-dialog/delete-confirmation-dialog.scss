@@ -1,0 +1,28 @@
+h2, p {
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+:host {
+  display: block;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+button.mat-mdc-button {
+  color: #ffffff;
+}
+
+button.mat-mdc-raised-button[color="warn"] {
+  background-color: #d32f2f;
+  color: #ffffff;
+}

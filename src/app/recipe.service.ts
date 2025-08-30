@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, from } from 'rxjs';
-import { Firestore, collection, query, where, collectionData, doc, getDoc, addDoc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collection, query, where, collectionData, doc, getDoc, addDoc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { Auth } from '@angular/fire/auth';
 import { Recipe } from './recipe.model';
@@ -81,6 +81,22 @@ export class RecipeService {
       throw new Error('User not authorized to update this recipe');
     }
     await updateDoc(recipeDoc, recipe);
+  }
+
+  async deleteRecipe(id: string): Promise<void> {
+    const user = this.auth.currentUser;
+    if (!user) {
+      throw new Error('User must be authenticated to delete a recipe');
+    }
+    const recipeDoc = doc(this.firestore, `recipes/${id}`);
+    const snapshot = await getDoc(recipeDoc);
+    if (!snapshot.exists()) {
+      throw new Error('Recipe not found');
+    }
+    if (snapshot.data()['userId'] !== user.uid) {
+      throw new Error('User not authorized to delete this recipe');
+    }
+    await deleteDoc(recipeDoc);
   }
 
   
