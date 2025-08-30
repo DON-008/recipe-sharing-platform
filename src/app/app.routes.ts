@@ -22,9 +22,9 @@ export const routes: Routes = [
     },
     {
     path: 'create-recipe',
-    component: CreateRecipeComponent,
+    loadComponent: () => import('./create-recipe/create-recipe').then(m => m.CreateRecipeComponent),
     canActivate: [() => inject(AuthService).isAuthenticated().pipe(map(isAuthenticated => isAuthenticated ? true : '/auth'))]
-  },
+    },
     { path: 'auth', component: AuthComponent },
     { path: 'seed', component: SeedComponent },
     { 
