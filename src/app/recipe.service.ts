@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Firestore, collection, query, where, collectionData, doc, getDoc } from '@angular/fire/firestore';
+import { Observable, from } from 'rxjs';
+import { Firestore, collection, query, where, collectionData, doc, getDoc, addDoc } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
+import { Auth } from '@angular/fire/auth';
 import { Recipe } from './recipe.model';
 
 @Injectable({ providedIn: 'root' })
 export class RecipeService {
-  constructor(private firestore: Firestore) {}
+  constructor(private firestore: Firestore, private auth: Auth) {}
 
   getRecipes(filters: { search?: string; cuisine?: string; dietary?: string; prepTime?: number }): Observable<Recipe[]> {
     const recipesCollection = collection(this.firestore, 'recipes');
@@ -55,6 +56,15 @@ export class RecipeService {
         observer.complete();
       }).catch(error => observer.error(error));
     });
+  }
+  
+  async addRecipe(recipe: Omit<Recipe, 'id'>): Promise<void> {
+    const user = this.auth.currentUser;
+    if (!user) {
+      throw new Error('User must be authenticated to add a recipe');
+    }
+    const recipesCollection = collection(this.firestore, 'recipes');
+    await addDoc(recipesCollection, { ...recipe, userId: user.uid });
   }
 
   

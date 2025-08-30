@@ -8,4 +8,5 @@ export interface Recipe {
   prepTime: number;
   ingredients: string[];
   instructions: string[];
+  userId: string;
 }

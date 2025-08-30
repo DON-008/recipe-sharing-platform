@@ -2,6 +2,10 @@ import { Routes } from '@angular/router';
 import { Home } from './home/home';
 import { SeedComponent } from './seed.component';
 import { AuthComponent } from './auth/auth';
+import { CreateRecipeComponent } from './create-recipe/create-recipe';
+import { inject } from '@angular/core';
+import { AuthService } from './auth.service';
+import { map } from 'rxjs';
 
 export const routes: Routes = [
     {
@@ -16,6 +20,11 @@ export const routes: Routes = [
     path: 'recipe/:id', 
     loadComponent: () => import('./recipe-detail/recipe-detail').then(m => m.RecipeDetail)
     },
+    {
+    path: 'create-recipe',
+    component: CreateRecipeComponent,
+    canActivate: [() => inject(AuthService).isAuthenticated().pipe(map(isAuthenticated => isAuthenticated ? true : '/auth'))]
+  },
     { path: 'auth', component: AuthComponent },
     { path: 'seed', component: SeedComponent },
     { 
