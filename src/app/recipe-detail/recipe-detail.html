@@ -1,48 +1,34 @@
-@if (recipe$ | async; as recipe) {
-  <section class="recipe-detail glass-card">
-    <mat-card class="detail-card">
-      <img mat-card-image [src]="recipe.imageUrl || 'assets/placeholder.jpg'" [alt]="recipe.title">
-      <mat-card-header>
-        <mat-card-title>{{recipe.title}}</mat-card-title>
-        <mat-card-subtitle>{{recipe.cuisine}} | {{recipe.prepTime}} min</mat-card-subtitle>
-      </mat-card-header>
+<section class="recipe-detail-container">
+  @if (recipe$ | async; as recipe) {
+    <mat-card class="recipe-card glass-card">
+      <img mat-card-image [src]="recipe.imageUrl" alt="{{recipe.title}}" />
       <mat-card-content>
-        <p class="description">{{recipe.description}}</p>
-        <div class="details">
-          <h3>Dietary Tags</h3>
-          <mat-chip-listbox>
-            <mat-chip>{{recipe.dietaryTags}}</mat-chip>
-          </mat-chip-listbox>
-        </div>
-        <div class="details">
-          <h3>Ingredients</h3>
-          <mat-list>
-            @for (ingredient of recipe.ingredients; track ingredient) {
-              <mat-list-item>{{ingredient}}</mat-list-item>
-            }
-          </mat-list>
-        </div>
-        <div class="details">
-          <h3>Instructions</h3>
-          <mat-list>
-            @for (instruction of recipe.instructions; track $index) {
-              <mat-list-item>{{instruction}}</mat-list-item>
-            }
-          </mat-list>
-        </div>
+        <h2>{{recipe.title}}</h2>
+        <p>{{recipe.description}}</p>
+        <p><strong>Cuisine:</strong> {{recipe.cuisine}}</p>
+        <p><strong>Dietary Tags:</strong> {{recipe.dietaryTags}}</p>
+        <p><strong>Prep Time:</strong> {{recipe.prepTime}} min</p>
+        <p><strong>Ingredients:</strong></p>
+        <ul>
+          @for (ingredient of recipe.ingredients; track ingredient) {
+            <li>{{ingredient}}</li>
+          }
+        </ul>
+        <p><strong>Instructions:</strong></p>
+        <ol>
+          @for (instruction of recipe.instructions; track instruction) {
+            <li>{{instruction}}</li>
+          }
+        </ol>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-stroked-button color="primary" routerLink="/browse-recipes">
-          <mat-icon>arrow_back</mat-icon> Back to Recipes
-        </button>
+        <button mat-button routerLink="/browse-recipes">Back</button>
+        @if (isOwner$ | async) {
+          <button mat-raised-button color="primary" [routerLink]="['/edit-recipe', recipe.id]">Edit</button>
+        }
       </mat-card-actions>
     </mat-card>
-  </section>
-} @else {
-  <section class="recipe-detail glass-card">
-    <p>Recipe not found.</p>
-    <button mat-stroked-button color="primary" routerLink="/browse-recipes">
-      <mat-icon>arrow_back</mat-icon> Back to Recipes
-    </button>
-  </section>
-}
+  } @else {
+    <p>Recipe not found</p>
+  }
+</section>

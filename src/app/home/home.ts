@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { RecipeService } from '../recipe.service';
+import { AuthService } from '../auth.service';
 import { Recipe } from '../recipe.model';
 
 @Component({
@@ -29,15 +30,21 @@ export class Home {
   searchTerm$ = new BehaviorSubject<string>('');
 
   recipes$: Observable<Recipe[]>;
+  currentUserId$: Observable<string | null>;
 
-  constructor(private recipeService: RecipeService) {
+  constructor(private recipeService: RecipeService,private authService: AuthService) {
     // this.recipes$ = this.recipeService.getRecipes({  }).pipe(
     //   map(recipes => recipes.slice(0, 4)))
+    
       this.recipes$ = combineLatest([this.searchTerm$.pipe(debounceTime(300))]).pipe(
       switchMap(([search]) => 
         this.recipeService.getRecipes({ search})
       ),
       map(recipes => recipes.slice(0, 4))
+    );
+
+    this.currentUserId$ = this.authService.getCurrentUser().pipe(
+      map(user => user?.uid || null)
     );
     
   }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, user } from '@angular/fire/auth';
+import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, user ,onAuthStateChanged } from '@angular/fire/auth';
 import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -27,5 +27,13 @@ export class AuthService {
 
   isAuthenticated(): Observable<boolean> {
     return this.getUser().pipe(map(user => !!user));
+  }
+  getCurrentUser(): Observable<{ uid: string } | null> {
+    return new Observable(observer => {
+      onAuthStateChanged(this.auth, user => {
+        observer.next(user ? { uid: user.uid } : null);
+        observer.complete();
+      });
+    });
   }
 }

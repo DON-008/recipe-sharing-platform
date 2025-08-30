@@ -1,121 +1,73 @@
-.recipe-detail {
-  padding: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
+.recipe-detail-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+  padding-top: 64px;
+  box-sizing: border-box;
+  // background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%), url('/assets/hero-bg.jpg') no-repeat center center;
+  background-size: cover;
 }
 
-.detail-card {
-  background: transparent;
-
-  ::ng-deep .mat-mdc-card {
-    background: transparent;
-  }
-
-  img {
-    object-fit: cover;
-    height: 300px;
-    width: 100%;
-    border-radius: 8px;
-  }
-
-  ::ng-deep .mat-mdc-card-header {
-    justify-content: center;
-    padding: 1.5rem;
-
-    .mat-mdc-card-title {
-      font-size: 2rem;
-      color: #333;
-    }
-
-    .mat-mdc-card-subtitle {
-      font-size: 1.2rem;
-      color: #666;
-    }
-  }
-
-  ::ng-deep .mat-mdc-card-content {
-    padding: 1.5rem;
-
-    .description {
-      font-size: 1.1rem;
-      color: #333;
-      margin-bottom: 1.5rem;
-    }
-
-    .details {
-      margin-bottom: 1.5rem;
-
-      h3 {
-        font-size: 1.3rem;
-        margin: 1rem 0 0.5rem;
-        color: #333;
-      }
-
-      .mat-mdc-chip-listbox {
-        display: flex;
-        justify-content: center;
-        gap: 0.5rem;
-
-        .mat-mdc-chip {
-          background: #e8eaf6;
-          color: #3f51b5;
-        }
-      }
-
-      .mat-mdc-list {
-        text-align: left;
-        padding: 0;
-
-        .mat-mdc-list-item {
-          font-size: 1rem;
-          color: #333;
-          margin-bottom: 0.5rem;
-        }
-      }
-    }
-  }
-
-  ::ng-deep .mat-mdc-card-actions {
-    padding: 1.5rem;
-    justify-content: center;
-
-    .mat-mdc-button {
-      color: #3f51b5;
-    }
-  }
+.recipe-card {
+  max-width: 600px;
+  width: 100%;
+  padding: 1.5rem;
+  box-sizing: border-box;
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15); /* Slightly less transparent */
   border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 1.5rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+h2, p, li {
+  color: #4a4848;
+  // text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Add shadow for contrast */
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+button.mat-mdc-raised-button[color="primary"] {
+  background-color: #3f51b5;
+  color: #ffffff;
+}
+
+button.mat-mdc-button {
+  color: #f10f0f;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 600px) {
-  .recipe-detail {
+  .recipe-detail-container {
+    padding-top: 56px;
+    padding: 0.5rem;
+  }
+
+  .recipe-card {
+    max-width: 90%;
     padding: 1rem;
   }
 
-  .detail-card {
-    img {
-      height: 200px;
-    }
+  h2 {
+    font-size: 1.2rem;
+  }
 
-    ::ng-deep .mat-mdc-card-title {
-      font-size: 1.6rem;
-    }
+  p, li {
+    font-size: 0.9rem;
+  }
 
-    ::ng-deep .mat-mdc-card-subtitle {
-      font-size: 1rem;
-    }
-
-    ::ng-deep .mat-mdc-list-item {
-      font-size: 0.9rem;
-    }
+  mat-card-actions {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }

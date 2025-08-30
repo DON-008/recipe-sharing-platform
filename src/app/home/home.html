@@ -24,6 +24,9 @@
   <div class="recipe-grid">
     @for (recipe of recipes$ | async; track recipe.id) {
         <mat-card class="recipe-card glass-card">
+          @if ((currentUserId$ | async) === recipe.userId) {
+            <mat-icon class="user-recipe-icon">star</mat-icon>
+          }
           <img mat-card-image [src]="recipe.imageUrl || 'assets/placeholder.jpg'" [alt]="recipe.title">
           <mat-card-content>
             <h3>{{recipe.title}}</h3>

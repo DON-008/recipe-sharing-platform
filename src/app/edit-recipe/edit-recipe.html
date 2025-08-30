@@ -1,0 +1,52 @@
+<section class="edit-recipe-container">
+  <mat-card class="recipe-card glass-card">
+    <h2>Edit Recipe</h2>
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" required />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" rows="4" required></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Cuisine</mat-label>
+        <mat-select formControlName="cuisine" required>
+          @for (cuisine of cuisines; track cuisine) {
+            <mat-option [value]="cuisine">{{cuisine}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Dietary Tags</mat-label>
+        <mat-select formControlName="dietaryTags" multiple required>
+          @for (tag of dietaryTags; track tag) {
+            <mat-option [value]="tag">{{tag}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Prep Time</mat-label>
+        <mat-select formControlName="prepTime" required>
+          @for (time of prepTimes; track time.value) {
+            <mat-option [value]="time.value">{{time.label}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Ingredients (one per line)</mat-label>
+        <textarea matInput formControlName="ingredients" rows="4" required></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Instructions (one per line)</mat-label>
+        <textarea matInput formControlName="instructions" rows="4" required></textarea>
+      </mat-form-field>
+      <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
+      <div class="actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="recipeForm.invalid">Update Recipe</button>
+        <button mat-button [routerLink]="['/recipe', recipeId]">Cancel</button>
+      </div>
+    </form>
+  </mat-card>
+</section>

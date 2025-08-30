@@ -25,6 +25,11 @@ export const routes: Routes = [
     loadComponent: () => import('./create-recipe/create-recipe').then(m => m.CreateRecipeComponent),
     canActivate: [() => inject(AuthService).isAuthenticated().pipe(map(isAuthenticated => isAuthenticated ? true : '/auth'))]
     },
+    {
+    path: 'edit-recipe/:id',
+    loadComponent: () => import('./edit-recipe/edit-recipe').then(m => m.EditRecipe),
+    canActivate: [() => inject(AuthService).isAuthenticated().pipe(map(isAuthenticated => isAuthenticated ? true : '/auth'))]
+    },
     { path: 'auth', component: AuthComponent },
     { path: 'seed', component: SeedComponent },
     { 

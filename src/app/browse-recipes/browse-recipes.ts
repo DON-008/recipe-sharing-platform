@@ -14,6 +14,7 @@ import { debounceTime, map, switchMap } from 'rxjs/operators';
 import { RecipeService } from '../recipe.service';
 import { Recipe } from '../recipe.model';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-browse-recipes',
@@ -42,6 +43,7 @@ export class BrowseRecipes {
   loadMore$ = new Subject<void>();
 
   recipes$: Observable<Recipe[]>;
+  currentUserId$: Observable<string | null>;
   batchSize = 20;
   isLoading = false;
 
@@ -49,12 +51,15 @@ export class BrowseRecipes {
   dietaryTags = ['all', 'Vegan', 'Gluten-Free', 'Vegetarian'];
   prepTimes = [{ value: 0, label: 'All' }, { value: 30, label: 'Under 30 min' }, { value: 60, label: 'Under 60 min' }];
 
-  constructor(private recipeService: RecipeService) {
+  constructor(private recipeService: RecipeService,private authService: AuthService) {
     this.recipes$ = combineLatest([this.searchTerm$.pipe(debounceTime(300)), this.cuisineFilter$, this.dietaryFilter$, this.prepTimeFilter$]).pipe(
       switchMap(([search, cuisine, dietary, prepTime]) => 
         this.recipeService.getRecipes({ search, cuisine: cuisine !== 'all' ? cuisine : '', dietary: dietary !== 'all' ? dietary : '', prepTime })
       ),
       map(recipes => recipes.slice(0, this.batchSize))
+    );
+    this.currentUserId$ = this.authService.getCurrentUser().pipe(
+      map(user => user?.uid || null)
     );
   }
 
