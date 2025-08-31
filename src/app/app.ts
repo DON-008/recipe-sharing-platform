@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,CommonModule, RouterModule, MatToolbarModule, MatButtonModule],
+  imports: [RouterOutlet,CommonModule, RouterModule, MatToolbarModule, MatButtonModule,MatMenuModule, MatMenuTrigger,MatIconModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

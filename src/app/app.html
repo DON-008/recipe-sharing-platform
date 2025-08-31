@@ -1,10 +1,27 @@
 <mat-toolbar color="primary">
-  <span>Recipe Sharing Platform</span>
-  <div class="nav-links">
-    <a mat-button routerLink="/">Home</a>
-    <a mat-button routerLink="/browse-recipes">Browse Recipes</a>
-    <a mat-button *ngIf="!(isAuthenticated$ | async)" routerLink="/auth">Login/Sign Up</a>
-    <button mat-button *ngIf="isAuthenticated$ | async" (click)="logout()">Logout</button>
+  <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-button" *ngIf="isAuthenticated$ | async">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span style="color:white;">Recipe Sharing Platform</span>
+  <span class="spacer"></span>
+  <div *ngIf="(isAuthenticated$ | async) === false" class="desktop-nav">
+    <button mat-button routerLink="/auth">Login</button>
   </div>
+  <div *ngIf="isAuthenticated$ | async" class="desktop-nav">
+    <button mat-button routerLink="/">Home</button>
+    <button mat-button routerLink="/browse-recipes">Browse Recipes</button>
+    <button mat-button routerLink="/create-recipe">Create Recipe</button>
+    <button mat-button (click)="logout()">Logout</button>
+  </div>
+  <mat-menu #menu="matMenu" class="mobile-menu">
+    @if (isAuthenticated$ | async) {
+      <button mat-menu-item routerLink="/">Home</button>
+      <button mat-menu-item routerLink="/browse-recipes">Browse Recipes</button>
+      <button mat-menu-item routerLink="/create-recipe">Create Recipe</button>
+      <button mat-menu-item (click)="logout()">Logout</button>
+    } @else {
+      <button mat-menu-item routerLink="/auth">Login</button>
+    }
+  </mat-menu>
 </mat-toolbar>
 <router-outlet></router-outlet>
